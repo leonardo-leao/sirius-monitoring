@@ -1,11 +1,12 @@
 # Author: Leonardo Rossi Leão
 # E-mail: leonardo.leao@cnpem.br
 
+import os
 import telebot
 
 class TelegramGroupMessage():
 
-    key = "5285914931:AAFi4G28sWgfH_48f_xPI1zVtoDvS1G6NuY"
+    key = os.getenv('telegramToken')
     bot = telebot.TeleBot(key)
 
     @staticmethod
@@ -32,3 +33,6 @@ class TelegramGroupMessage():
 
         TelegramGroupMessage.sendMessage(message)
         TelegramGroupMessage.sendPhoto(photo)
+
+if __name__ == "__main__":
+    TelegramGroupMessage.sendMessage("""teste token na variavel de ambiente""")
