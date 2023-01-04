@@ -43,8 +43,8 @@ while True:
 
         if lastMachineMode["mode"] != machineMode:
             pastHours = now - lastMachineMode["hour"]
-            if pastHours >= timedelta(hours=3):
-                ini = lastMachineMode["hour"] - timedelta(hours=3)
+            if pastHours >= timedelta(hours=3) and machineMode == 0:
+                ini = lastMachineMode["hour"] - timedelta(hours=1)
                 Train.pvs(pvs, ini, lastMachineMode["hour"])
 
                 # Update machine mode
