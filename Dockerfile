@@ -23,5 +23,3 @@ WORKDIR /home/app/
 
 RUN python3 -m pip install -r /home/app/requirements.txt
 CMD ["python3", "main.py"]
-
-EXPOSE 8080
