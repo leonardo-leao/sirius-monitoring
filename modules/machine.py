@@ -7,7 +7,7 @@ from actions.math import Math                   # Mathematical functions
 
 class Machine():
 
-    operationModes = {
+    operations_modes = {
         0: 'Feixe para Usuários',
         1: 'Comissionamento',       # A partir de março não terá mais (?)
         2: 'Condicionamento',       # Igual feixe pra usuarios mas sem usuarios
@@ -44,7 +44,7 @@ class Machine():
         currentValue = Math.avg(data[current]["y"])
         rfValue = Math.avg(data[rf]["y"])
 
-        # Quando o feixe cai a carga térmica continua inalterada
+        # TODO Quando o feixe cai a carga térmica continua inalterada
 
         # Current less than 20 miliampere or RF is paused
         if currentValue <= 20 or rfValue == data[rf]["y"][0]:

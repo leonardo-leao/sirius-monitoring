@@ -7,6 +7,7 @@ from actions.math import Math                   # Mathematical functions
 from actions.file import File                   # File treatment tools 
 from modules.plot import Plot as plt            # Plot tools
 from modules.machine import Machine
+from modules.training.train import Train
 from actions.archiver import Archiver           # CNPEM Archiver tools
 from datetime import datetime, timedelta        # Datetime tools
 
@@ -34,13 +35,22 @@ class Monitor():
         self.limit = limit
         self.window = timedelta(minutes=window)
 
-    def insideLimits(self, pv, y):
+    def insideLimits(self, pv, y, monitored):
         # Load the model of stability
-        model = File.loadModel(pv)
+        try:
+            model = File.loadModel(pv)
+        except:
+            end = datetime.now()
+            ini = end - timedelta(hours=3)
+            Train.pvs([pv], ini, end)
+            model = File.loadModel(pv)
 
         # Parameters of comparison
         avg = Math.avg(y)
         std = Math.std(y)
+
+        # Update monitored variables
+        monitored[pv] = {'model': model['mean'], 'value': avg}
 
         if abs(avg - model['mean']) <= self.limit:
             if std <= self.limit:
@@ -54,9 +64,10 @@ class Monitor():
         self.data = Archiver.request(self.pvs, ini, end)
 
         # Machine operating characteristics
-        machineMode = Machine.now()
-        thermalLoad = Machine.isThereThermalLoad()
+        machine_mode = Machine.now()
+        thermal_load = Machine.isThereThermalLoad()
 
+        monitored = {}
         outsideLimits = {}
         
         for pv in self.data.keys():
@@ -64,7 +75,7 @@ class Monitor():
             x = self.data[pv]["x"]
             y = self.data[pv]["y"]
 
-            insideLimits = self.insideLimits(pv, y)
+            insideLimits = self.insideLimits(pv, y, monitored)
 
             if insideLimits != True:
 
@@ -76,11 +87,13 @@ class Monitor():
                 
                 outsideLimits[pv] = {
                     "timeItWasDetected": ini,
-                    "machineMode": machineMode,
-                    "thermalLoad": thermalLoad,
+                    "machineMode": machine_mode,
+                    "thermalLoad": thermal_load,
                     "value": insideLimits[0],
                     "trainedValue": insideLimits[1],
                     "plot": plot
                 }
+
+        File.updateMonitoredVariables(monitored)
 
         return outsideLimits

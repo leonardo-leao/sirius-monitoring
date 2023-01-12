@@ -44,6 +44,24 @@ class File():
 
         File.__appendFile(path, message)
 
+    @staticmethod
+    def updateMonitoredVariables(monitored: dict) -> None:
+
+        """ Insert in the monitored variables file the values 
+        obtained for each pv in the last analysis """
+
+        path = f'.\\log\\monitoredVariables.txt'
+        file = open(path, 'w')
+
+        message = ''
+        for pv in sorted(monitored.keys()):
+            model = round(monitored[pv]['model'], 2)
+            value = round(monitored[pv]['value'], 2)
+            difference = round(value-model, 2)
+            message += f'{pv}\n\tmodel: {model}\n\tvalue: {value}\n\tdifference: {difference}\n'
+        message += f'Last update: {datetime.now().strftime("%d/%m/%Y, %H:%M:%S")}'
+
+        file.write(message)
 
     @staticmethod
     def insertModel(pv: str, model: str) -> None:

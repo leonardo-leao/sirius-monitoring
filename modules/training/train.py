@@ -30,6 +30,7 @@ class Train():
         data = Archiver.request(pvs, ini, end, 1)
         
         for pv in data.keys():
+            
             x = data[pv]["x"]
             y = data[pv]["y"]
 
@@ -39,3 +40,5 @@ class Train():
 
             text = f"""mean={mean}\nstd={std}\nlastUpdate={now}"""
             File.insertModel(pv, text)
+
+        File.insertLog(f"New training on pvs ${pvList}")

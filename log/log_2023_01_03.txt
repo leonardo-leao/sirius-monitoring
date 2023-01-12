@@ -1,5 +1,0 @@
-[09:10:20] A problem occurred while requesting AS-Glob:AP-MachShift:Mode-Sts data
-[09:44:20] A problem occurred while requesting AS-Glob:AP-MachShift:Mode-Sts data
-[09:44:20] There is a problem with machine mode acquisition
-[09:45:25] A problem occurred while requesting AS-Glob:AP-MachShift:Mode-Sts data
-[09:45:25] There is a problem with machine mode acquisition

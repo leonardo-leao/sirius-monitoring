@@ -1,2 +1,0 @@
-[15:41:25] A problem occurred while requesting UA-01Hall60:AC-PT100-FC61406:MeanTemperature-Mon data
-[15:45:45] A problem occurred while requesting UA-01Hall60:AC-PT100-FC61406:MeanTemperature-Mon data
