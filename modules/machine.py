@@ -4,6 +4,7 @@
 from actions.archiver import Archiver           # CNPEM Archiver tools
 from datetime import datetime, timedelta        # Datetime tools
 from actions.math import Math                   # Mathematical functions
+from actions.file import File
 
 class Machine():
 
@@ -32,22 +33,30 @@ class Machine():
 
     @staticmethod
     def isThereThermalLoad():
-        current = "SI-13C4:DI-DCCT:Current-Mon"
-        rf = "RF-Gen:GeneralFreq-SP"
+
+        # Temperature of water used to magnets refrigeration
+        magnets = "SI-18-MBTemp-13-CH7"
 
         # Requires the last 10 seconds of data
         end = datetime.now()
         ini = end - timedelta(seconds=10)
-        data = Archiver.request([current, rf], ini, end)
+        data = Archiver.request([magnets], ini, end)
 
         # Get the averages of the last 30 seconds to analyze thermal load
-        currentValue = Math.avg(data[current]["y"])
-        rfValue = Math.avg(data[rf]["y"])
+        magnets_hot_value = Math.avg(data[magnets[0]]["y"])
 
-        # TODO Quando o feixe cai a carga térmica continua inalterada
-
-        # Current less than 20 miliampere or RF is paused
-        if currentValue <= 20 or rfValue == data[rf]["y"][0]:
+        # If the water temperature of magnets refrigeration is less than 25
+        # degrees, the magnets is off
+        if magnets_hot_value < 25:
             return False
         return True
         
+
+# current = "SI-13C4:DI-DCCT:Current-Mon"
+# rf = "RF-Gen:GeneralFreq-SP"
+# # Current in dipole sources
+# dipole = "SI-Fam:PS-B1B2-1:Current-Mon"
+# current_value = Math.avg(data[current]["y"])
+# rf_value = Math.avg(data[rf]["y"])
+# dipole_value = Math.avg(data[dipole]["y"])
+# magnets_cold_value= Math.avg(data[magnets[1]]["y"])

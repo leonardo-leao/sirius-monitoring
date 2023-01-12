@@ -75,9 +75,9 @@ class Monitor():
             x = self.data[pv]["x"]
             y = self.data[pv]["y"]
 
-            insideLimits = self.insideLimits(pv, y, monitored)
+            inside_limits = self.insideLimits(pv, y, monitored)
 
-            if insideLimits != True:
+            if inside_limits != True:
 
                 # Save a plot of the problem with one hour
                 path = f".\\modules\\figures\\{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
@@ -89,8 +89,8 @@ class Monitor():
                     "timeItWasDetected": ini,
                     "machineMode": machine_mode,
                     "thermalLoad": thermal_load,
-                    "value": insideLimits[0],
-                    "trainedValue": insideLimits[1],
+                    "value": inside_limits[0],
+                    "trainedValue": inside_limits[1],
                     "plot": plot
                 }
 

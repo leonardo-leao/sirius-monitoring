@@ -25,7 +25,8 @@ while True:
         last_machine_mode = {
             #"mode": Machine.now(),
             "mode": 0,
-            "hour": datetime.now()
+            "hour": datetime.now(),
+            "thermalLoad": True
         }
         break
     except:
@@ -70,7 +71,19 @@ while True:
 
                 # PV with data outside limits
                 for pv in outside_limits.keys():
-                    tgm.sendAlert(pv, outside_limits[pv])
+                    
+                    thermalLoad = outside_limits[pv]["thermalLoad"]
+                    
+                    # Just send an alert with the tunnel is with thermal load
+                    if thermalLoad != last_machine_mode["thermalLoad"]:
+                        
+                        if thermalLoad:
+                            tgm.sendMessage("Aumento de carga térmica no túnel")
+                        else:
+                            tgm.sendAlert("Queda de carga térmica no túnel")
+                        last_machine_mode["thermalLoad"] = thermalLoad
+
+                        tgm.sendAlert(pv, outside_limits[pv])
             
             else:
 
