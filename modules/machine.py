@@ -43,7 +43,7 @@ class Machine():
         data = Archiver.request([magnets], ini, end)
 
         # Get the averages of the last 30 seconds to analyze thermal load
-        magnets_hot_value = Math.avg(data[magnets[0]]["y"])
+        magnets_hot_value = Math.avg(data[magnets]["y"])
 
         # If the water temperature of magnets refrigeration is less than 25
         # degrees, the magnets is off
