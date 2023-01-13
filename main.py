@@ -23,8 +23,7 @@ tunnel_temperature = Monitor(pvs, limit=0.1)
 while True:
     try:
         last_machine_mode = {
-            #"mode": Machine.now(),
-            "mode": 0,
+            "mode": Machine.now(),
             "hour": datetime.now(),
             "thermalLoad": Machine.isThereThermalLoad()
         }
@@ -40,8 +39,7 @@ while True:
         print(now)
 
         # Re-train data if changed machine mode (after 3 hours)
-        #machine_mode = Machine.now()
-        machine_mode = 0
+        machine_mode = Machine.now()
         print(f"\t[1] Machine mode: {Machine.operations_modes[machine_mode]}")
 
         if last_machine_mode["mode"] != machine_mode:

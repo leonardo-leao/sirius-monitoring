@@ -1,12 +1,15 @@
 # Author: Leonardo Rossi Leão
 # E-mail: leonardo.leao@cnpem.br
 
+import os
 import glob                             # Files and directory functions
 from datetime import datetime           # Datetime functions
 
 class File():
 
     """ Functions for creating, reading and manipulating files """
+
+    logPath = os.getenv("tempMonitorPath")
 
     @staticmethod
     def __createFile(path: str) -> None:
@@ -39,7 +42,7 @@ class File():
 
         now = datetime.now()
 
-        path = f'.\\log\\log_{now.strftime("%Y_%m_%d")}.txt'
+        path = f'{File.logPath}\\log\\log_{now.strftime("%Y_%m_%d")}.txt'
         message = f'[{now.strftime("%H:%M:%S")}] {message}'
 
         File.__appendFile(path, message)
@@ -50,7 +53,7 @@ class File():
         """ Insert in the monitored variables file the values 
         obtained for each pv in the last analysis """
 
-        path = f'.\\log\\monitoredVariables.txt'
+        path = f'{File.logPath}\\log\\monitoredVariables.txt'
         file = open(path, 'w')
 
         message = ''
@@ -69,7 +72,7 @@ class File():
         """ Insert a new model from PV stability """
 
         name = pv.replace("-", "").replace(":", "")
-        path = f'.\\modules\\training\\models\\{name}.txt'
+        path = f'{File.logPath}\\modules\\training\\models\\{name}.txt'
 
         File.__appendFile(path, model)
 
@@ -77,7 +80,7 @@ class File():
     def loadModel(pv: str) -> None:
         
         name = pv.replace("-", "").replace(":", "")
-        path = f'.\\modules\\training\\models\\{name}.txt'
+        path = f'{File.logPath}\\modules\\training\\models\\{name}.txt'
 
         model = {}
 
