@@ -80,10 +80,14 @@ class Monitor():
 
                 if inside_limits != True:
 
+                    dataplot = Archiver.request([pv], end-timedelta(hours=1), end)
+                    xp = dataplot[pv]["x"]
+                    yp = dataplot[pv]["y"]
+
                     # Save a plot of the problem with one hour
                     path = f".\\modules\\figures\\{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
                     plotOptions = {"savefig": path, "xIsDate": True}
-                    plt.telegram(x, y, plotOptions)
+                    plt.telegram(xp, yp, plotOptions)
                     plot = open(path, 'rb')
                     
                     outsideLimits[pv] = {
