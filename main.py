@@ -26,7 +26,7 @@ while True:
             #"mode": Machine.now(),
             "mode": 0,
             "hour": datetime.now(),
-            "thermalLoad": True
+            "thermalLoad": Machine.isThereThermalLoad()
         }
         break
     except:
@@ -64,7 +64,6 @@ while True:
             print("\t[2] Requesting")
             outside_limits = tunnel_temperature.run()
 
-
             if len(outside_limits.keys()) > 0:
 
                 print("\t[3] Sending messages")
@@ -74,15 +73,16 @@ while True:
                     
                     thermalLoad = outside_limits[pv]["thermalLoad"]
                     
-                    # Just send an alert with the tunnel is with thermal load
+                    # Alert of change in tunnel thermal load
                     if thermalLoad != last_machine_mode["thermalLoad"]:
-                        
                         if thermalLoad:
-                            tgm.sendMessage("Aumento de carga térmica no túnel")
+                            tgm.sendMessage("⚠️Alerta!\nAumento de carga térmica no túnel")
                         else:
-                            tgm.sendAlert("Queda de carga térmica no túnel")
+                            tgm.sendMessage("⚠️Alerta!\nQueda de carga térmica no túnel")
                         last_machine_mode["thermalLoad"] = thermalLoad
 
+                    # Just send messages if tunnel thermal load is in standard mode
+                    if thermalLoad:
                         tgm.sendAlert(pv, outside_limits[pv])
             
             else:

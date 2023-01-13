@@ -81,7 +81,6 @@ class Archiver():
                     result[pv] = {'x': x, 'y': y}
             
                 except Exception as e:
-                    result[pv] = None
                     File.insertLog(f'A problem occurred while requesting {pv} data')
                 
                 bar()

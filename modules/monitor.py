@@ -72,28 +72,33 @@ class Monitor():
         
         for pv in self.data.keys():
 
-            x = self.data[pv]["x"]
-            y = self.data[pv]["y"]
+            try:
+                x = self.data[pv]["x"]
+                y = self.data[pv]["y"]
 
-            inside_limits = self.insideLimits(pv, y, monitored)
+                inside_limits = self.insideLimits(pv, y, monitored)
 
-            if inside_limits != True:
+                if inside_limits != True:
 
-                # Save a plot of the problem with one hour
-                path = f".\\modules\\figures\\{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
-                plotOptions = {"savefig": path, "xIsDate": True}
-                plt.telegram(x, y, plotOptions)
-                plot = open(path, 'rb')
-                
-                outsideLimits[pv] = {
-                    "timeItWasDetected": ini,
-                    "machineMode": machine_mode,
-                    "thermalLoad": thermal_load,
-                    "value": inside_limits[0],
-                    "trainedValue": inside_limits[1],
-                    "plot": plot
-                }
+                    # Save a plot of the problem with one hour
+                    path = f".\\modules\\figures\\{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
+                    plotOptions = {"savefig": path, "xIsDate": True}
+                    plt.telegram(x, y, plotOptions)
+                    plot = open(path, 'rb')
+                    
+                    outsideLimits[pv] = {
+                        "timeItWasDetected": ini,
+                        "machineMode": machine_mode,
+                        "thermalLoad": thermal_load,
+                        "value": inside_limits[0],
+                        "trainedValue": inside_limits[1],
+                        "plot": plot
+                    }
+            except:
+                File.insertLog(f"An error occured when processing {pv}")
 
         File.updateMonitoredVariables(monitored)
+
+        #TODO implementar rotina de analise de oscilacao dos dados
 
         return outsideLimits
