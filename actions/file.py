@@ -42,7 +42,7 @@ class File():
 
         now = datetime.now()
 
-        path = f'{File.logPath}\\log\\log_{now.strftime("%Y_%m_%d")}.txt'
+        path = f'{File.logPath}/log/log_{now.strftime("%Y_%m_%d")}.txt'
         message = f'[{now.strftime("%H:%M:%S")}] {message}'
 
         File.__appendFile(path, message)
@@ -53,7 +53,7 @@ class File():
         """ Insert in the monitored variables file the values 
         obtained for each pv in the last analysis """
 
-        path = f'{File.logPath}\\log\\monitoredVariables.txt'
+        path = f'{File.logPath}/log/monitoredVariables.txt'
 
         with open(path, 'w') as file:
 
@@ -77,7 +77,7 @@ class File():
         """ Insert a new model from PV stability """
 
         name = pv.replace("-", "").replace(":", "")
-        path = f'{File.logPath}\\modules\\training\\models\\{name}.txt'
+        path = f'{File.logPath}/modules/training/models/{name}.txt'
 
         File.__appendFile(path, model)
 
@@ -85,7 +85,7 @@ class File():
     def loadModel(pv: str) -> None:
         
         name = pv.replace("-", "").replace(":", "")
-        path = f'{File.logPath}\\modules\\training\\models\\{name}.txt'
+        path = f'{File.logPath}/modules/training/models/{name}.txt'
 
         model = {}
 
