@@ -21,9 +21,12 @@ class Machine():
 
     @staticmethod
     def mode(ini, end):
-        pv = "AS-Glob:AP-MachShift:Mode-Sts"
-        data = Archiver.request([pv], ini, end)
-        return (data[pv]["x"], data[pv]["y"])
+        while True:
+            try:
+                pv = "AS-Glob:AP-MachShift:Mode-Sts"
+                data = Archiver.request([pv], ini, end)
+                return (data[pv]["x"], data[pv]["y"])
+            except: pass
 
     @staticmethod
     def now():

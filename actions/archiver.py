@@ -25,12 +25,16 @@ class Archiver():
             limit: max number of PVs that will be returned
         """
 
-        url = 'http://ais-eng-srv-ta.cnpem.br/retrieval/bpl/getMatchingPVs'
-        params = {'pv': search, 'limit': limit}
+        while True:
+            try:
+                url = 'http://ais-eng-srv-ta.cnpem.br/retrieval/bpl/getMatchingPVs'
+                params = {'pv': search, 'limit': limit}
 
-        response = httpRequest.get(url, params=params)
-        
-        return literal_eval(response.text)
+                response = httpRequest.get(url, params=params)
+                
+                return literal_eval(response.text)
+                
+            except: pass
 
     @staticmethod
     def __datetime2str(datetime: datetime) -> str:

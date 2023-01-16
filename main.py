@@ -48,19 +48,19 @@ while True:
                 ini = last_machine_mode["hour"] - timedelta(hours=1)
                 Train.pvs(pvs, ini, last_machine_mode["hour"])
 
-                # Update machine mode
-                last_machine_mode["mode"] = machine_mode
-                last_machine_mode["hour"] = now 
+            # Update machine mode
+            last_machine_mode["mode"] = machine_mode
+            last_machine_mode["hour"] = now 
 
             # Send an alert of changed in machine mode
             str_machine_mode = Machine.operations_modes[machine_mode]
             tgm.sendMessage(f"Novo modo de operação da máquina: {str_machine_mode}")
 
+        print("\t[2] Requesting")
+        outside_limits = tunnel_temperature.run()
+
         # Just request data if machine mode is beam for users
         if last_machine_mode["mode"] == 0:
-
-            print("\t[2] Requesting")
-            outside_limits = tunnel_temperature.run()
 
             if len(outside_limits.keys()) > 0:
 
