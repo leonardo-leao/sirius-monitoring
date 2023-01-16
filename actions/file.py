@@ -67,9 +67,9 @@ class File():
 
             file.write(message)
 
-            print("[4] Updating monitored variables")
+            print("\t[4] Updating monitored variables")
 
-        file.close()
+            file.close()
 
     @staticmethod
     def insertModel(pv: str, model: str) -> None:
