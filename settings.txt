@@ -1,0 +1,2 @@
+status: 1
+alarm_time: 10

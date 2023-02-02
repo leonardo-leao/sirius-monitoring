@@ -101,3 +101,32 @@ class File():
                     model[mType] = datetime.strptime(mValue, "%d/%m/%Y, %H:%M:%S")
 
         return model
+
+    @staticmethod
+    def alterSettings(settings: dict) -> None:
+        message = ""
+        for key in settings.keys():
+            message += f"{key}: {settings[key]}\n"
+        
+        path = f'{File.logPath}/settings.txt'
+
+        with open(path, 'w') as file:
+            file.write(message)
+
+        file.close()
+
+    @staticmethod
+    def loadSettings() -> None:
+
+        settings = {}
+        path = f'{File.logPath}/settings.txt'
+
+        with open(path, 'r') as file:
+            data = file.read()
+            data = data.split('\n')
+
+            for i in range(len(data)-1):
+                op, val = data[i].split(": ")
+                settings[op] = int(val)
+
+        return settings

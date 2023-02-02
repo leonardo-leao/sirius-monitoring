@@ -17,7 +17,6 @@ start_analysis = 5
 
 # Starts temperature monitoring
 pvs = ["TU-*:AC-PT100:MeanTemperature-Mon"]
-tunnel_temperature = Monitor(pvs, limit=0.1)
 
 # Machine characteristics (data delayed by 3 hours)
 while True:
@@ -34,9 +33,11 @@ while True:
 
 while True:
     now = datetime.now()
-    if now.minute % start_analysis == 0:
+    settings = File.loadSettings()
 
-        print(now)
+    if settings["status"] == 1 and (now.minute % settings["alarm_time"] == 0):
+
+        tunnel_temperature = Monitor(pvs, limit=0.1, window=settings["alarm_time"])
 
         # Re-train data if changed machine mode (after 3 hours)
         machine_mode = Machine.now()
