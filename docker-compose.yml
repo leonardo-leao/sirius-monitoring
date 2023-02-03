@@ -1,7 +1,7 @@
 # Author: Leonardo Rossi Leao
 # E-mail: leonardo.leao@cnpem.br
 
-version: '1.0'
+version: '3.3'
 
 services:
 
@@ -13,7 +13,7 @@ services:
     env_file:
       - ./Dockerfiles/config/monitor.env
     volumes:
-      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+      - "./:/home/app/"
 
   tunnel_temp_bot:
     container_name: tunnel_temp_bot
@@ -23,6 +23,6 @@ services:
     env_file:
       - ./Dockerfiles/config/monitor.env
     volumes:
-      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+      - "./:/home/app/"
 
 

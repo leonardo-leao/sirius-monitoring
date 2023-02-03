@@ -1,15 +1,15 @@
 TU-0160:AC-PT100:MeanTemperature-Mon
 	model: 24.0
-	value: 23.99
-	difference: -0.01
-TU-0308:AC-PT100:MeanTemperature-Mon
-	model: 24.0
 	value: 24.01
 	difference: 0.01
+TU-0308:AC-PT100:MeanTemperature-Mon
+	model: 24.0
+	value: 24.04
+	difference: 0.04
 TU-0914:AC-PT100:MeanTemperature-Mon
 	model: 24.0
-	value: 23.9
-	difference: -0.1
+	value: 24.3
+	difference: 0.3
 TU-1520:AC-PT100:MeanTemperature-Mon
 	model: 24.0
 	value: 24.01
@@ -20,14 +20,14 @@ TU-2126:AC-PT100:MeanTemperature-Mon
 	difference: -0.01
 TU-2732:AC-PT100:MeanTemperature-Mon
 	model: 24.0
-	value: 24.01
-	difference: 0.01
-TU-3338:AC-PT100:MeanTemperature-Mon
-	model: 24.0
 	value: 24.0
 	difference: 0.0
+TU-3338:AC-PT100:MeanTemperature-Mon
+	model: 24.0
+	value: 24.02
+	difference: 0.02
 TU-4550:AC-PT100:MeanTemperature-Mon
 	model: 24.0
-	value: 24.01
-	difference: 0.01
-Last update: 02/02/2023, 22:00:27
+	value: 23.99
+	difference: -0.01
+Last update: 03/02/2023, 09:00:12

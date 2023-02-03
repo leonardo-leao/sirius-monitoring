@@ -1,2 +1,2 @@
 status: 1
-alarm_time: 10
+alarm_time: 15
