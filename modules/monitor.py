@@ -35,6 +35,8 @@ class Monitor():
         self.limit = limit
         self.window = timedelta(minutes=window)
 
+        self.savePlotPath = os.getenv("tempMonitorPath")
+
     def insideLimits(self, pv, y, monitored):
         # Load the model of stability
         try:
@@ -85,8 +87,8 @@ class Monitor():
                     yp = dataplot[pv]["y"]
 
                     # Save a plot of the problem with one hour
-                    path = f".\\modules\\figures\\{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
-                    plotOptions = {"savefig": path, "xIsDate": True}
+                    path = f"{self.savePlotPath}/modules/figures/{pv[3:7]}_{end.strftime('%d%m%Y%H%M%S')}.png"
+                    plotOptions = {"savefig": path, "xIsDate": True, "pv": pv}
                     plt.telegram(xp, yp, plotOptions)
                     plot = open(path, 'rb')
                     

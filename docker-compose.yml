@@ -13,5 +13,16 @@ services:
     env_file:
       - ./Dockerfiles/config/monitor.env
     volumes:
-      - "C:\\Users\\ASUS\\Desktop\\sirius-monitoring\\settings.txt:/home/app/"
+      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+
+  tunnel_temp_bot:
+    container_name: tunnel_temp_bot
+    build: ./Dockerfiles/bot/
+    image: dockerregistry.lnls-sirius.com.br/gas/tunnel-temp-bot:2023-02-03
+    restart: always
+    env_file:
+      - ./Dockerfiles/config/monitor.env
+    volumes:
+      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+
 

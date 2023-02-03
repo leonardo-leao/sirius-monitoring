@@ -7,7 +7,8 @@ FROM python:3.9-alpine
 WORKDIR /home/app/
 
 # Install python requirements
-RUN pip3 install -r requirements.txt
+COPY ./requirements.txt ./
+RUN pip install -r requirements.txt
 
 # Running python monitor app
 CMD ["python", "./bot.py"]

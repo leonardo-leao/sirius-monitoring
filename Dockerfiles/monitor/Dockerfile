@@ -19,7 +19,8 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 WORKDIR /home/app/
 
 # Install python requirements
-#RUN python3 -m pip install -r /home/app/requirements.txt
+COPY ./requirements.txt ./
+RUN python3 -m pip install -r /home/app/requirements.txt
 
 # Running python app
-#CMD ["python3", "./main.py"]
+CMD ["python3", "./main.py"]
