@@ -1,0 +1,39 @@
+# Author: Leonardo Rossi Leao
+# E-mail: leonardo.leao@cnpem.br
+
+version: '1.0'
+
+services:
+
+  tunnel_temp_mon:
+    container_name: tunnel_temp_mon
+    build: ./Dockerfiles/monitor/
+    image: dockerregistry.lnls-sirius.com.br/gas/tunnel-temp-mon:2023-02-03
+    restart: always
+    env_file:
+      - ./Dockerfiles/config/monitor.env
+    volumes:
+      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+    deploy:
+      replicas: 1
+      labels: nao-sei
+      placement:
+        constraints:
+           - naosei
+
+  tunnel_temp_bot:
+    container_name: tunnel_temp_bot
+    build: ./Dockerfiles/bot/
+    image: dockerregistry.lnls-sirius.com.br/gas/tunnel-temp-bot:2023-02-03
+    restart: always
+    env_file:
+      - ./Dockerfiles/config/monitor.env
+    volumes:
+      - "/home/leo-leao/sirius-monitoring/:/home/app/"
+    deploy:
+      replicas: 1
+      labels: nao-sei
+      placement:
+        constraints:
+           - naosei
+
