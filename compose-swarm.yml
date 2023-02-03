@@ -6,34 +6,23 @@ version: '3.3'
 services:
 
   tunnel_temp_mon:
-    container_name: tunnel_temp_mon
-    build: ./Dockerfiles/monitor/
     image: dockerregistry.lnls-sirius.com.br/gas/tunnel-temp-mon:2023-02-03
-    restart: always
-    env_file:
-      - ./Dockerfiles/config/monitor.env
-    volumes:
-      - "./:/home/app/"
     deploy:
-      replicas: 1
       placement:
         constraints:
            - node.hostname == LA-RaCtrl-CO-Srv-1
            - node.hostname == CA-RaCtrl-CO-Srv-1
+      replicas: 1
+      restart_policy:
+          condition: any
 
   tunnel_temp_bot:
-    container_name: tunnel_temp_bot
-    build: ./Dockerfiles/bot/
     image: dockerregistry.lnls-sirius.com.br/gas/tunnel-temp-bot:2023-02-03
-    restart: always
-    env_file:
-      - ./Dockerfiles/config/monitor.env
-    volumes:
-      - "./:/home/app/"
     deploy:
-      replicas: 1
       placement:
         constraints:
            - node.hostname == LA-RaCtrl-CO-Srv-1
            - node.hostname == CA-RaCtrl-CO-Srv-1
-
+      replicas: 1
+      restart_policy:
+          condition: any
